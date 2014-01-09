@@ -136,40 +136,40 @@ class ShortcutsPanel(bpy.types.Panel):
 
 
 		self.layout.label("Add", icon='ZOOMIN')
-		self.layout.operator("game_engine_shortcuts.fly_camera_operator", icon='OUTLINER_OB_CAMERA')
-		self.layout.operator("game_engine_shortcuts.orbit_camera_operator", icon='CAMERA_DATA')
+		self.layout.operator("bge_shortcuts.fly_camera_operator", icon='OUTLINER_OB_CAMERA')
+		self.layout.operator("bge_shortcuts.orbit_camera_operator", icon='CAMERA_DATA')
 		
 		self.layout.separator()
-		self.layout.operator("game_engine_shortcuts.first_person_rig", icon='ARMATURE_DATA')
-		self.layout.operator("game_engine_shortcuts.third_person_rig", icon='POSE_DATA')
+		self.layout.operator("bge_shortcuts.first_person_rig", icon='ARMATURE_DATA')
+		self.layout.operator("bge_shortcuts.third_person_rig", icon='POSE_DATA')
  
 		self.layout.separator()
 		self.layout.label("Filters", icon='COLOR')
 
 		# Filters
-		draw_toggle_button(self, "game_engine_shortcuts.dof_filter", "VISIBLE_IPO_ON", "dof")
-		draw_toggle_button(self, "game_engine_shortcuts.ssao_filter", "SMOOTH", "ssao")
-		draw_toggle_button(self, "game_engine_shortcuts.ssgi_filter", "MOD_SUBSURF", "ssgi")
-		draw_toggle_button(self, "game_engine_shortcuts.bloom_filter", "LAMP_SUN", "bloom")
-		draw_toggle_button(self, "game_engine_shortcuts.bleach_filter", "PROP_OFF", "bleach")
-		draw_toggle_button(self, "game_engine_shortcuts.vignette_filter", "BBOX", "vignette")
-		draw_toggle_button(self, "game_engine_shortcuts.retinex_filter", "SEQ_HISTOGRAM", "retinex")
-		draw_toggle_button(self, "game_engine_shortcuts.chromatic_filter", "FORCE_FORCE", "chromatic")
-		draw_toggle_button(self, "game_engine_shortcuts.desaturate_filter", "MESH_CUBE", "desaturate")
-		draw_toggle_button(self, "game_engine_shortcuts.warm_sepia_filter", "MARKER_HLT", "warm_sepia")
-		draw_toggle_button(self, "game_engine_shortcuts.technicolor_1_filter", "COLOR_RED", "technicolor_1")
-		draw_toggle_button(self, "game_engine_shortcuts.technicolor_2_filter", "COLOR_BLUE", "technicolor_2")
-		draw_toggle_button(self, "game_engine_shortcuts.movie_noise_filter", "CLIP", "movie_noise")
-		draw_toggle_button(self, "game_engine_shortcuts.pixelate_filter", "MOD_BUILD", "pixelate")
-		draw_toggle_button(self, "game_engine_shortcuts.edge_detect_filter", "VIEW3D_VEC", "edge_detect")
-		draw_toggle_button(self, "game_engine_shortcuts.harsh_colors_filter", "SEQ_CHROMA_SCOPE", "harsh_colors")
-		draw_toggle_button(self, "game_engine_shortcuts.depth_filter", "MOD_ARRAY", "depth")
+		draw_toggle_button(self, "bge_shortcuts.dof_filter", "VISIBLE_IPO_ON", "dof")
+		draw_toggle_button(self, "bge_shortcuts.ssao_filter", "SMOOTH", "ssao")
+		draw_toggle_button(self, "bge_shortcuts.ssgi_filter", "MOD_SUBSURF", "ssgi")
+		draw_toggle_button(self, "bge_shortcuts.bloom_filter", "LAMP_SUN", "bloom")
+		draw_toggle_button(self, "bge_shortcuts.bleach_filter", "PROP_OFF", "bleach")
+		draw_toggle_button(self, "bge_shortcuts.vignette_filter", "BBOX", "vignette")
+		draw_toggle_button(self, "bge_shortcuts.retinex_filter", "SEQ_HISTOGRAM", "retinex")
+		draw_toggle_button(self, "bge_shortcuts.chromatic_filter", "FORCE_FORCE", "chromatic")
+		draw_toggle_button(self, "bge_shortcuts.desaturate_filter", "MESH_CUBE", "desaturate")
+		draw_toggle_button(self, "bge_shortcuts.warm_sepia_filter", "MARKER_HLT", "warm_sepia")
+		draw_toggle_button(self, "bge_shortcuts.technicolor_1_filter", "COLOR_RED", "technicolor_1")
+		draw_toggle_button(self, "bge_shortcuts.technicolor_2_filter", "COLOR_BLUE", "technicolor_2")
+		draw_toggle_button(self, "bge_shortcuts.movie_noise_filter", "CLIP", "movie_noise")
+		draw_toggle_button(self, "bge_shortcuts.pixelate_filter", "MOD_BUILD", "pixelate")
+		draw_toggle_button(self, "bge_shortcuts.edge_detect_filter", "VIEW3D_VEC", "edge_detect")
+		draw_toggle_button(self, "bge_shortcuts.harsh_colors_filter", "SEQ_CHROMA_SCOPE", "harsh_colors")
+		draw_toggle_button(self, "bge_shortcuts.depth_filter", "MOD_ARRAY", "depth")
 
 
 
 class FlyCameraOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.fly_camera_operator"
+	bl_idname = "bge_shortcuts.fly_camera_operator"
 	bl_label = "Fly Camera"
 	bl_description = "Creates a fly camera for moving around the world"
 
@@ -180,7 +180,7 @@ class FlyCameraOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts import fly_camera
+		from bge_shortcuts.scripts import fly_camera
 
 		
 		# Add the camera
@@ -221,7 +221,7 @@ class FlyCameraOperator(bpy.types.Operator):
 
 class OrbitCameraOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.orbit_camera_operator"
+	bl_idname = "bge_shortcuts.orbit_camera_operator"
 	bl_label = "Orbit Camera"
 	bl_description = "Creates an orbit camera for rotating around an object"
 
@@ -236,7 +236,7 @@ class OrbitCameraOperator(bpy.types.Operator):
 
 class FirstPersonRigOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.first_person_rig"
+	bl_idname = "bge_shortcuts.first_person_rig"
 	bl_label = "First Person Rig"
 	bl_description = "A simple First Person rig that allows you to move around the world"
 
@@ -245,7 +245,7 @@ class FirstPersonRigOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from game_engine_shortcuts.scripts import fps_rig
+		from bge_shortcuts.scripts import fps_rig
 
 		# Create the parent
 		bpy.ops.object.select_all(action='DESELECT')
@@ -319,7 +319,7 @@ class FirstPersonRigOperator(bpy.types.Operator):
 
 class ThirdPersonRigOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.third_person_rig"
+	bl_idname = "bge_shortcuts.third_person_rig"
 	bl_label = "Third Person Rig"
 	bl_description = "A simple First Person rig that allows you to move around the world"
 
@@ -333,7 +333,7 @@ class ThirdPersonRigOperator(bpy.types.Operator):
 
 class DOFFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.dof_filter"
+	bl_idname = "bge_shortcuts.dof_filter"
 	bl_label = "Depth of Field"
 	bl_description = "Adds a simple depth of field filter to the world"
 
@@ -343,7 +343,7 @@ class DOFFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import fast_dof
+		from bge_shortcuts.scripts.filters import fast_dof
 
 		add_filter(context, fast_dof, 'fast_dof.glsl', 'dof', 10)
 
@@ -352,7 +352,7 @@ class DOFFilterOperator(bpy.types.Operator):
 
 class SSAOFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.ssao_filter"
+	bl_idname = "bge_shortcuts.ssao_filter"
 	bl_label = "SSAO"
 	bl_description = "Adds a simple Screen Space Ambient Occlusion filter to the world"
 
@@ -362,7 +362,7 @@ class SSAOFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import ssao
+		from bge_shortcuts.scripts.filters import ssao
 
 		add_filter(context, ssao, 'ssao.glsl', 'ssao', 1)
 
@@ -372,7 +372,7 @@ class SSAOFilterOperator(bpy.types.Operator):
 
 class BloomFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.bloom_filter"
+	bl_idname = "bge_shortcuts.bloom_filter"
 	bl_label = "Bloom"
 	bl_description = "Adds a simple Bloom filter to the world"
 
@@ -382,7 +382,7 @@ class BloomFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import bloom
+		from bge_shortcuts.scripts.filters import bloom
 
 		add_filter(context, bloom, 'bloom.glsl', 'bloom', 2)
 
@@ -392,7 +392,7 @@ class BloomFilterOperator(bpy.types.Operator):
 
 class BleachFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.bleach_filter"
+	bl_idname = "bge_shortcuts.bleach_filter"
 	bl_label = "Bleach"
 	bl_description = "Adds a simple Bloom filter to the world"
 
@@ -402,14 +402,14 @@ class BleachFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import bleach
+		from bge_shortcuts.scripts.filters import bleach
 
 		add_filter(context, bleach, 'bleach.glsl', 'bleach', 3)
 		return {'FINISHED'}
 
 class VignetteFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.vignette_filter"
+	bl_idname = "bge_shortcuts.vignette_filter"
 	bl_label = "Vignette"
 	bl_description = "Adds a simple Vignette filter to the world"
 
@@ -419,7 +419,7 @@ class VignetteFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import vignette
+		from bge_shortcuts.scripts.filters import vignette
 
 		add_filter(context, vignette, 'vignette.glsl', 'vignette', 20)
 
@@ -428,7 +428,7 @@ class VignetteFilterOperator(bpy.types.Operator):
 
 class RetinexFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.retinex_filter"
+	bl_idname = "bge_shortcuts.retinex_filter"
 	bl_label = "Retinex"
 	bl_description = "Adds a simple Retinex filter to the world"
 
@@ -438,7 +438,7 @@ class RetinexFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import retinex
+		from bge_shortcuts.scripts.filters import retinex
 
 		add_filter(context, retinex, 'retinex.glsl', 'retinex', 9)
 
@@ -447,7 +447,7 @@ class RetinexFilterOperator(bpy.types.Operator):
 
 class ChromaticFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.chromatic_filter"
+	bl_idname = "bge_shortcuts.chromatic_filter"
 	bl_label = "Chromatic Aberration"
 	bl_description = "Adds a simple Chromatic Aberration filter to the world"
 
@@ -457,7 +457,7 @@ class ChromaticFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import chromatic
+		from bge_shortcuts.scripts.filters import chromatic
 
 		add_filter(context, chromatic, 'chromatic.glsl', 'chromatic', 8)
 
@@ -466,7 +466,7 @@ class ChromaticFilterOperator(bpy.types.Operator):
 
 class DesaturateFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.desaturate_filter"
+	bl_idname = "bge_shortcuts.desaturate_filter"
 	bl_label = "Desaturate"
 	bl_description = "Adds a simple Desaturate filter to the world"
 
@@ -476,7 +476,7 @@ class DesaturateFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import desaturate
+		from bge_shortcuts.scripts.filters import desaturate
 
 		add_filter(context, desaturate, 'desaturate.glsl', 'desaturate', 7)
 
@@ -485,7 +485,7 @@ class DesaturateFilterOperator(bpy.types.Operator):
 
 class WarmSepiaFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.warm_sepia_filter"
+	bl_idname = "bge_shortcuts.warm_sepia_filter"
 	bl_label = "Warm Sepia"
 	bl_description = "Adds a simple Desaturate filter to the world"
 
@@ -495,7 +495,7 @@ class WarmSepiaFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import warm_sepia
+		from bge_shortcuts.scripts.filters import warm_sepia
 
 		add_filter(context, warm_sepia, 'warm_sepia.glsl', 'warm_sepia', 6)
 
@@ -504,7 +504,7 @@ class WarmSepiaFilterOperator(bpy.types.Operator):
 
 class Technicolor1FilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.technicolor_1_filter"
+	bl_idname = "bge_shortcuts.technicolor_1_filter"
 	bl_label = "Technicolor 1"
 	bl_description = "Adds a simple Technicolor 1 filter to the world"
 
@@ -514,7 +514,7 @@ class Technicolor1FilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import technicolor_1
+		from bge_shortcuts.scripts.filters import technicolor_1
 
 		add_filter(context, technicolor_1, 'technicolor_1.glsl', 'technicolor_1', 5)
 
@@ -523,7 +523,7 @@ class Technicolor1FilterOperator(bpy.types.Operator):
 
 class Technicolor2FilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.technicolor_2_filter"
+	bl_idname = "bge_shortcuts.technicolor_2_filter"
 	bl_label = "Technicolor 2"
 	bl_description = "Adds a simple Technicolor 2 filter to the world"
 
@@ -533,7 +533,7 @@ class Technicolor2FilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import technicolor_2
+		from bge_shortcuts.scripts.filters import technicolor_2
 
 		add_filter(context, technicolor_2, 'technicolor_2.glsl', 'technicolor_2', 4)
 
@@ -542,7 +542,7 @@ class Technicolor2FilterOperator(bpy.types.Operator):
 
 class SSGIFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.ssgi_filter"
+	bl_idname = "bge_shortcuts.ssgi_filter"
 	bl_label = "SSGI"
 	bl_description = "Adds a simple Desaturate filter to the world"
 
@@ -552,7 +552,7 @@ class SSGIFilterOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from game_engine_shortcuts.scripts.filters import ssgi
+		from bge_shortcuts.scripts.filters import ssgi
 
 		add_filter(context, ssgi, 'ssgi.glsl', 'ssgi', 3)
 
@@ -561,7 +561,7 @@ class SSGIFilterOperator(bpy.types.Operator):
 
 class MovieNoiseFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.movie_noise_filter"
+	bl_idname = "bge_shortcuts.movie_noise_filter"
 	bl_label = "Movie Noise"
 	bl_description = "Adds a simple noise to the world that simulates movie noise"
 
@@ -570,7 +570,7 @@ class MovieNoiseFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from game_engine_shortcuts.scripts.filters import movie_noise
+		from bge_shortcuts.scripts.filters import movie_noise
 
 		add_filter(context, movie_noise, 'movie_noise.glsl', 'movie_noise', 12)
 		return {'FINISHED'}
@@ -578,7 +578,7 @@ class MovieNoiseFilterOperator(bpy.types.Operator):
 
 class PixelateFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.pixelate_filter"
+	bl_idname = "bge_shortcuts.pixelate_filter"
 	bl_label = "Pixelate"
 	bl_description = "Adds a simple pixelate to the world"
 
@@ -587,7 +587,7 @@ class PixelateFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from game_engine_shortcuts.scripts.filters import pixelate
+		from bge_shortcuts.scripts.filters import pixelate
 
 		add_filter(context, pixelate, 'pixelate.glsl', 'pixelate', 12)
 		return {'FINISHED'}
@@ -595,7 +595,7 @@ class PixelateFilterOperator(bpy.types.Operator):
 
 class EdgeDetectFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.edge_detect_filter"
+	bl_idname = "bge_shortcuts.edge_detect_filter"
 	bl_label = "Edge Detect"
 	bl_description = "Adds a simple edge detect to the world"
 
@@ -604,14 +604,14 @@ class EdgeDetectFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from game_engine_shortcuts.scripts.filters import edge_detect
+		from bge_shortcuts.scripts.filters import edge_detect
 
 		add_filter(context, edge_detect, 'edge_detect.glsl', 'edge_detect', 12)
 		return {'FINISHED'}
 
 class HarshColorsFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.harsh_colors_filter"
+	bl_idname = "bge_shortcuts.harsh_colors_filter"
 	bl_label = "Harsh Colors"
 	bl_description = "Makes all the colours very harsh"
 
@@ -620,14 +620,14 @@ class HarshColorsFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from game_engine_shortcuts.scripts.filters import harsh_colors
+		from bge_shortcuts.scripts.filters import harsh_colors
 
 		add_filter(context, harsh_colors, 'harsh_colors.glsl', 'harsh_colors', 12)
 		return {'FINISHED'}
 
 class DepthFilterOperator(bpy.types.Operator):
 	"""Tooltip"""
-	bl_idname = "game_engine_shortcuts.depth_filter"
+	bl_idname = "bge_shortcuts.depth_filter"
 	bl_label = "Depth"
 	bl_description = "Depth filter"
 
@@ -636,7 +636,7 @@ class DepthFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from game_engine_shortcuts.scripts.filters import depth
+		from bge_shortcuts.scripts.filters import depth
 
 		add_filter(context, depth, 'depth.glsl', 'depth', 12)
 		return {'FINISHED'}
