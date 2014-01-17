@@ -4,9 +4,9 @@ script = """
 // Date Updated: 2/21/11
 		
 uniform sampler2D bgl_RenderedTexture;
-const float widthf = 3.0;
-const float strengthf = 0.8;
-const int shape = 0;
+const float widthf = $shader_bloom_width;
+const float strengthf = $shader_bloom_strength;
+const int shape = $shader_bloom_shape;
 
 float samples[11];
 

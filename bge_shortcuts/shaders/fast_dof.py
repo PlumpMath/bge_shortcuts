@@ -3,10 +3,9 @@ script = """
 uniform sampler2D bgl_RenderedTexture;
 uniform sampler2D bgl_DepthTexture;
  
-#define blurclamp 0.002
-#define bias 0.05
- 
-#define KERNEL_SIZE  8.0
+#define blurclamp $shader_dof_blur_clamp
+#define bias $shader_dof_bias 
+#define KERNEL_SIZE  $shader_dof_kernel_size
  
 void main() 
 {

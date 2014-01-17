@@ -3,7 +3,7 @@ script = """
 // SolarLune
 
 uniform sampler2D bgl_RenderedTexture;
-const float dist = 1.5;
+const float dist = $shader_chromatic_strength;
 
 void main()
 {

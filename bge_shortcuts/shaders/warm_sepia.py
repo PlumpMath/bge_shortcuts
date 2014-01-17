@@ -1,10 +1,10 @@
 script = """
-// Name: Desaturation Filter
-// Author: Printed in XNA Unleashed; Readapted for GLSL by SolarLune
-// Date Updated: 6/6/11
+// Name: Sepia Filter
+// Author: Derived from Desaturate and Blender's source Sepia filter
+// Date Updated: 2/21/11
 
 uniform sampler2D bgl_RenderedTexture;
-uniform float percentage = 1.0;
+const float percentage = $shader_warm_sepia_strength;
 
 void main(void)
 {
@@ -14,7 +14,7 @@ void main(void)
 	float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
 	// The human eye is more sensitive to certain colors (like bright yellow) than others, so you need to use this specific color-formula to average them out to one monotone color (gray)
 
-	vec4 desat = vec4(gray, gray, gray, color.a);
+	vec4 desat = vec4(gray * vec3(1.2, 1.0, 0.8), color.a);
 
 	gl_FragColor = mix(color, desat, percentage);
 }

@@ -6,8 +6,8 @@ script = """
 // Notes: Detects the edges in the screenshot and outputs the edge colors.
 
 uniform sampler2D bgl_RenderedTexture;
-const float thickness = 2.0;
-const float edgef = 3.0;
+const float thickness = $shader_edge_detect_thickness;
+const float edgef = $shader_edge_detect_edge;
 const vec4 col = (1.0,1.0,1.0,1.0);
 
 void main(void)

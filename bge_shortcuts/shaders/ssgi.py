@@ -4,8 +4,8 @@ uniform sampler2D bgl_RenderedTexture; // Color texture
 uniform float bgl_RenderedTextureWidth;
 uniform float bgl_RenderedTextureHeight;
 
-float samples = 32.0;
-float radius = 0.8;
+float samples = $shader_ssgi_samples;
+float radius = $shader_ssgi_radius;
 
 uniform vec2 camerarange = vec2(0.1, 100.0);
       

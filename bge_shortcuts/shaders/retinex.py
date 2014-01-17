@@ -1,7 +1,7 @@
 script = """
 uniform sampler2D bgl_RenderedTexture;
 
-const float retinex = -1.2;
+const float retinex = $shader_retinex_strength;
 
 vec4 sample( in vec2 coord ) 
 {
@@ -27,7 +27,7 @@ for (j = -5; j < 5; j++)
 
 
 	vec4 value =  texture2D(bgl_RenderedTexture, gl_TexCoord[0].st);
-	vec4 pow_value = pow(value,(bloom*retinex));
+	vec4 pow_value = pow(value,(bloom*(retinex * -1)));
 	
 	gl_FragColor = pow_value*value;
 

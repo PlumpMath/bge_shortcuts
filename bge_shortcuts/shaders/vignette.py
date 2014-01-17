@@ -1,8 +1,8 @@
 script = """
 uniform sampler2D bgl_RenderedTexture;
 
-const float vignette_size = 0.5;
-const float tolerance = 0.6;
+const float vignette_size = $shader_vignette_size;
+const float tolerance = $shader_vignette_tolerance;
 
 void main(void)
 {

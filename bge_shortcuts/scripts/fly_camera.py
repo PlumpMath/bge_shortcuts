@@ -62,13 +62,19 @@ class FlyCamera():
         # Keyboard movement
         keyboard = logic.keyboard.events
         
-        frame_equaliser = 60 / logic.getAverageFrameRate()
+        if logic.getAverageFrameRate() != 0:
+            frame_equaliser = 60 / logic.getAverageFrameRate()
+        else:
+            frame_equaliser == 1
         
         speed = self.move_speed * frame_equaliser
         
                 
         if keyboard[events.LEFTSHIFTKEY]:
             speed = self.move_speed * 3 * frame_equaliser
+
+        if keyboard[events.LEFTCTRLKEY]:
+            speed = self.move_speed / 3 * frame_equaliser
         
         if keyboard[events.WKEY]:
             self.camera.applyMovement([0, 0, -speed], True)

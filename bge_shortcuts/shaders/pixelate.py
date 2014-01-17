@@ -7,8 +7,8 @@ script = """
 // X-axis and celly size on the Y-axis.
 
 uniform sampler2D bgl_RenderedTexture;
-const float cellw = 1;
-const float cellh = 1;
+const float cellw = $shader_pixelate_cellw;
+const float cellh = $shader_pixelate_cellh;
 const vec2 winsize = 100;
 
 float Round(float value){       // Rounds off the specified number

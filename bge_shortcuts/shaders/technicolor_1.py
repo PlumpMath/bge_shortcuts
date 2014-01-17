@@ -1,6 +1,6 @@
 script = """
 uniform sampler2D bgl_RenderedTexture;
-const float amount = 1.0;
+const float amount = $shader_technicolor_1_strength;
 
 vec2 texCoord = vec2(gl_TexCoord[0]).st;
 

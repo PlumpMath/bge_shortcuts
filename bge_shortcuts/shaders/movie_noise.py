@@ -2,7 +2,7 @@ script = """
 uniform sampler2D bgl_RenderedTexture;
 
 uniform float timer;
-const float noise_amount = -0.1;
+const float noise_amount = $shader_movie_noise_strength;
 
 
 
@@ -15,6 +15,6 @@ void main(void)
 	
 	vec4 noise = vec4(noiseR,noiseG,noiseB,1.0);
 	   
-	gl_FragColor = texture2D(bgl_RenderedTexture, gl_TexCoord[0].st) + (noise*noise_amount);
+	gl_FragColor = texture2D(bgl_RenderedTexture, gl_TexCoord[0].st) + (noise*(noise_amount * -1));
 }
 """

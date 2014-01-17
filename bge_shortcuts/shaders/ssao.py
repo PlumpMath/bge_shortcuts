@@ -26,26 +26,26 @@ vec2 texCoord = gl_TexCoord[0].st;
 
 //make sure that these two values are the same for your camera, otherwise distances will be wrong.
 
-float znear = 0.3; //Z-near
-float zfar = 100.0; //Z-far
+float znear = $shader_ssao_znear; //Z-near
+float zfar = $shader_ssao_zfar; //Z-far
 
 //user variables
-int samples = 2; //ao sample count
+int samples = $shader_ssao_samples; //ao sample count
 
-float radius = 3.0; //ao radius
+float radius = $shader_ssao_radius; //ao radius
 float aoclamp = 0.25; //depth clamp - reduces haloing at screen edges
 bool noise = false; //use noise instead of pattern for sample dithering
 float noiseamount = 0.0; //dithering amount
 
-float diffarea = 0.4; //self-shadowing reduction
-float gdisplace = 0.2; //gauss bell center
+float diffarea = $shader_ssao_diffarea; //self-shadowing reduction
+float gdisplace = $shader_ssao_gdisplace; //gauss bell center
 
 bool mist = true; //use mist?
 float miststart = 0.0; //mist start
 float mistend = 200.0; //mist end
 
-bool onlyAO = false; //use only ambient occlusion pass?
-float lumInfluence = 0.5; //how much luminance affects occlusion
+bool onlyAO = $shader_ssao_only_ao; //use only ambient occlusion pass?
+float lumInfluence = $shader_ssao_lum_influence; //how much luminance affects occlusion
 
 //--------------------------------------------------------
 
