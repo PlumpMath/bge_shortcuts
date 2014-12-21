@@ -1,7 +1,7 @@
 bge_shortcuts
 =============
 
-A simple addon for the Blender Game Engine to make life slightly easier when developing or prototyping games. Add shaders (depth of field, SSAO, contrast...) or scripts (fly camera, first person rig...to scenes with the click of a button.
+A simple addon for the Blender Game Engine to make life slightly easier when developing or prototyping games. Add shaders (depth of field, SSAO, contrast...) or scripts (fly camera, first person rig...) to scenes with the click of a button.
 
 
 Installation
