@@ -2,12 +2,13 @@
 # File shader_op.py
 #----------------------------------------------------------
 from string import Template
+import os
+import ntpath
  
 import bpy
 from bpy.props import *
 
 from .shader_settings import ShaderSettings
-
 
 
 '''
@@ -36,7 +37,7 @@ def create_filter_holder(context):
 
 	return bpy.context.selected_objects[0]
 
-def add_filter(context, filter_holder, script_name, filter_name, pass_index, options):
+def add_filter(context, script_name, filter_name, pass_index, options):
 
 
 	# Object for adding the glsl filters to
@@ -60,7 +61,7 @@ def add_filter(context, filter_holder, script_name, filter_name, pass_index, opt
 		text = bpy.data.texts[-1]
 		text.name = script_name
 
-	update_shader(options, context, filter_holder, script_name)
+	update_shader(options, context, script_name)
 
 	# Add an 'always' sensor
 	bpy.ops.logic.sensor_add(type='ALWAYS', object=object.name)
@@ -110,16 +111,16 @@ def prepare_shader_properties(cls, context):
 
 
 
-def update_shader(cls, context, shader_holder, shader_name):
+def update_shader(cls, context, shader_name):
 
 	settings = context.scene.glsl_shader_settings
-	text = shader_holder.script
 	dict = {}
 
 	properties = shader_props(cls)
 	for prop in properties:
 
 		value = getattr(settings, prop)
+		print(value)
 
 		# GLSL needs lower case booleans
 		if value == True:
@@ -129,12 +130,18 @@ def update_shader(cls, context, shader_holder, shader_name):
 
 		dict[prop] = value
 
+	shader_location = os.path.join(ntpath.dirname(__file__), 'templates/shaders/' + shader_name)
+	shader_file = open(shader_location, 'r')
+	text = shader_file.read()
 
 	template = Template(text)
 	shader = template.substitute(**dict)
 
 	text_block = bpy.data.texts[shader_name]
 	text_block.from_string(shader)
+
+	return
+
 
 
 '''
@@ -160,10 +167,9 @@ class DOFFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import fast_dof
 
 		options = DOFFilterOptionsOperator
-		add_filter(context, fast_dof, 'fast_dof.glsl', 'dof', 10, options)
+		add_filter(context, 'fast_dof.glsl', 'dof', 10, options)
 
 		return {'FINISHED'}
 
@@ -179,9 +185,8 @@ class DOFFilterOptionsOperator(bpy.types.Operator):
 	shader_dof_kernel_size = ShaderSettings.shader_dof_kernel_size
  
 	def execute(self, context):
-		from bge_shortcuts.shaders import fast_dof
 		set_shader_properties(self, context)
-		update_shader(self, context, fast_dof, 'fast_dof.glsl')
+		update_shader(self, context, 'fast_dof.glsl')
 
 		return {'FINISHED'}
  
@@ -204,10 +209,9 @@ class SSAOFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import ssao
 
 		options = SSAOFilterOptionsOperator
-		add_filter(context, ssao, 'ssao.glsl', 'ssao', 1, options)
+		add_filter(context, 'ssao.glsl', 'ssao', 1, options)
 		return {'FINISHED'}
 
 
@@ -232,9 +236,8 @@ class SSAOFilterOptionsOperator(bpy.types.Operator):
 
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import ssao
 		set_shader_properties(self, context)
-		update_shader(self, context, ssao, 'ssao.glsl')
+		update_shader(self, context, 'ssao.glsl')
 
 		return {'FINISHED'}
  
@@ -257,10 +260,9 @@ class SSGIFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import ssgi
 
 		options = SSGIFilterOptionsOperator
-		add_filter(context, ssgi, 'ssgi.glsl', 'ssgi', 3, options)
+		add_filter(context, 'ssgi.glsl', 'ssgi', 3, options)
 		return {'FINISHED'}
 
 
@@ -274,9 +276,8 @@ class SSGIFilterOptionsOperator(bpy.types.Operator):
 	shader_ssgi_radius = ShaderSettings.shader_ssgi_radius
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import ssgi
 		set_shader_properties(self, context)
-		update_shader(self, context, ssgi, 'ssgi.glsl')
+		update_shader(self, context, 'ssgi.glsl')
 
 		return {'FINISHED'}
  
@@ -300,10 +301,9 @@ class BloomFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import bloom
 
 		options = BloomFilterOptionsOperator
-		add_filter(context, bloom, 'bloom.glsl', 'bloom', 4, options)
+		add_filter(context, 'bloom.glsl', 'bloom', 4, options)
 		return {'FINISHED'}
 
 
@@ -318,9 +318,8 @@ class BloomFilterOptionsOperator(bpy.types.Operator):
 	shader_bloom_shape = ShaderSettings.shader_bloom_shape
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import bloom
 		set_shader_properties(self, context)
-		update_shader(self, context, bloom, 'bloom.glsl')
+		update_shader(self, context, 'bloom.glsl')
 
 		return {'FINISHED'}
  
@@ -343,10 +342,9 @@ class BleachFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import bleach
 
 		options = BleachFilterOptionsOperator
-		add_filter(context, bleach, 'bleach.glsl', 'bleach', 5, options)
+		add_filter(context, 'bleach.glsl', 'bleach', 5, options)
 		return {'FINISHED'}
 
 
@@ -359,9 +357,8 @@ class BleachFilterOptionsOperator(bpy.types.Operator):
 	shader_bleach_strength = ShaderSettings.shader_bleach_strength
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import bleach
 		set_shader_properties(self, context)
-		update_shader(self, context, bleach, 'bleach.glsl')
+		update_shader(self, context, 'bleach.glsl')
 
 		return {'FINISHED'}
  
@@ -383,10 +380,9 @@ class VignetteFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import vignette
 
 		options = VignetteFilterOptionsOperator
-		add_filter(context, vignette, 'vignette.glsl', 'vignette', 5, options)
+		add_filter(context, 'vignette.glsl', 'vignette', 5, options)
 		return {'FINISHED'}
 
 
@@ -400,9 +396,8 @@ class VignetteFilterOptionsOperator(bpy.types.Operator):
 	shader_vignette_tolerance = ShaderSettings.shader_vignette_tolerance
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import vignette
 		set_shader_properties(self, context)
-		update_shader(self, context, vignette, 'vignette.glsl')
+		update_shader(self, context, 'vignette.glsl')
 
 		return {'FINISHED'}
  
@@ -425,10 +420,9 @@ class RetinexFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import retinex
 
 		options = RetinexFilterOptionsOperator
-		add_filter(context, retinex, 'retinex.glsl', 'retinex', 5, options)
+		add_filter(context, 'retinex.glsl', 'retinex', 5, options)
 		return {'FINISHED'}
 
 
@@ -441,9 +435,8 @@ class RetinexFilterOptionsOperator(bpy.types.Operator):
 	shader_retinex_strength = ShaderSettings.shader_retinex_strength
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import retinex
 		set_shader_properties(self, context)
-		update_shader(self, context, retinex, 'retinex.glsl')
+		update_shader(self, context, 'retinex.glsl')
 
 		return {'FINISHED'}
  
@@ -465,10 +458,9 @@ class ChromaticFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import chromatic
 
 		options = ChromaticFilterOptionsOperator
-		add_filter(context, chromatic, 'chromatic.glsl', 'chromatic', 5, options)
+		add_filter(context, 'chromatic.glsl', 'chromatic', 5, options)
 		return {'FINISHED'}
 
 
@@ -481,9 +473,8 @@ class ChromaticFilterOptionsOperator(bpy.types.Operator):
 	shader_chromatic_strength = ShaderSettings.shader_chromatic_strength
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import chromatic
 		set_shader_properties(self, context)
-		update_shader(self, context, chromatic, 'chromatic.glsl')
+		update_shader(self, context, 'chromatic.glsl')
 
 		return {'FINISHED'}
  
@@ -506,10 +497,9 @@ class SaturateFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import saturate
 
 		options = SaturateFilterOptionsOperator
-		add_filter(context, saturate, 'saturate.glsl', 'saturate', 5, options)
+		add_filter(context, 'saturate.glsl', 'saturate', 5, options)
 		return {'FINISHED'}
 
 
@@ -522,9 +512,8 @@ class SaturateFilterOptionsOperator(bpy.types.Operator):
 	shader_saturate_strength = ShaderSettings.shader_saturate_strength
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import saturate
 		set_shader_properties(self, context)
-		update_shader(self, context, saturate, 'saturate.glsl')
+		update_shader(self, context, 'saturate.glsl')
 
 		return {'FINISHED'}
  
@@ -547,10 +536,9 @@ class WarmSepiaFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import warm_sepia
 
 		options = WarmSepiaFilterOptionsOperator
-		add_filter(context, warm_sepia, 'warm_sepia.glsl', 'warm_sepia', 5, options)
+		add_filter(context, 'warm_sepia.glsl', 'warm_sepia', 5, options)
 		return {'FINISHED'}
 
 
@@ -563,9 +551,8 @@ class WarmSepiaFilterOptionsOperator(bpy.types.Operator):
 	shader_warm_sepia_strength = ShaderSettings.shader_warm_sepia_strength
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import warm_sepia
 		set_shader_properties(self, context)
-		update_shader(self, context, warm_sepia, 'warm_sepia.glsl')
+		update_shader(self, context, 'warm_sepia.glsl')
 
 		return {'FINISHED'}
  
@@ -587,10 +574,9 @@ class Technicolor1FilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import technicolor_1
 
 		options = Technicolor1FilterOptionsOperator
-		add_filter(context, technicolor_1, 'technicolor_1.glsl', 'technicolor_1', 5, options)
+		add_filter(context, 'technicolor_1.glsl', 'technicolor_1', 5, options)
 		return {'FINISHED'}
 
 
@@ -603,9 +589,8 @@ class Technicolor1FilterOptionsOperator(bpy.types.Operator):
 	shader_technicolor_1_strength = ShaderSettings.shader_technicolor_1_strength
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import technicolor_1
 		set_shader_properties(self, context)
-		update_shader(self, context, technicolor_1, 'technicolor_1.glsl')
+		update_shader(self, context, 'technicolor_1.glsl')
 
 		return {'FINISHED'}
  
@@ -627,10 +612,9 @@ class Technicolor2FilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import technicolor_2
 
 		options = Technicolor2FilterOptionsOperator
-		add_filter(context, technicolor_2, 'technicolor_2.glsl', 'technicolor_2', 5, options)
+		add_filter(context, 'technicolor_2.glsl', 'technicolor_2', 5, options)
 		return {'FINISHED'}
 
 
@@ -643,9 +627,8 @@ class Technicolor2FilterOptionsOperator(bpy.types.Operator):
 	shader_technicolor_2_strength = ShaderSettings.shader_technicolor_2_strength
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import technicolor_2
 		set_shader_properties(self, context)
-		update_shader(self, context, technicolor_2, 'technicolor_2.glsl')
+		update_shader(self, context, 'technicolor_2.glsl')
 
 		return {'FINISHED'}
  
@@ -668,10 +651,9 @@ class MovieNoiseFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import movie_noise
 
 		options = MovieNoiseFilterOptionsOperator
-		add_filter(context, movie_noise, 'movie_noise.glsl', 'movie_noise', 5, options)
+		add_filter(context, 'movie_noise.glsl', 'movie_noise', 5, options)
 		return {'FINISHED'}
 
 
@@ -684,9 +666,8 @@ class MovieNoiseFilterOptionsOperator(bpy.types.Operator):
 	shader_movie_noise_strength = ShaderSettings.shader_movie_noise_strength
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import movie_noise
 		set_shader_properties(self, context)
-		update_shader(self, context, movie_noise, 'movie_noise.glsl')
+		update_shader(self, context, 'movie_noise.glsl')
 
 		return {'FINISHED'}
  
@@ -709,10 +690,9 @@ class PixelateFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import pixelate
 
 		options = PixelateFilterOptionsOperator
-		add_filter(context, pixelate, 'pixelate.glsl', 'pixelate', 5, options)
+		add_filter(context, 'pixelate.glsl', 'pixelate', 5, options)
 		return {'FINISHED'}
 
 
@@ -726,9 +706,8 @@ class PixelateFilterOptionsOperator(bpy.types.Operator):
 	shader_pixelate_cellh = ShaderSettings.shader_pixelate_cellh
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import pixelate
 		set_shader_properties(self, context)
-		update_shader(self, context, pixelate, 'pixelate.glsl')
+		update_shader(self, context, 'pixelate.glsl')
 
 		return {'FINISHED'}
  
@@ -751,10 +730,9 @@ class EdgeDetectFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import edge_detect
 
 		options = EdgeDetectFilterOptionsOperator
-		add_filter(context, edge_detect, 'edge_detect.glsl', 'edge_detect', 5, options)
+		add_filter(context, 'edge_detect.glsl', 'edge_detect', 5, options)
 		return {'FINISHED'}
 
 
@@ -768,9 +746,8 @@ class EdgeDetectFilterOptionsOperator(bpy.types.Operator):
 	shader_edge_detect_edge = ShaderSettings.shader_edge_detect_edge
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import edge_detect
 		set_shader_properties(self, context)
-		update_shader(self, context, edge_detect, 'edge_detect.glsl')
+		update_shader(self, context, 'edge_detect.glsl')
 
 		return {'FINISHED'}
  
@@ -794,10 +771,9 @@ class HarshColorsFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import harsh_colors
 
 		options = HarshColorsFilterOptionsOperator
-		add_filter(context, harsh_colors, 'harsh_colors.glsl', 'harsh_colors', 5, options)
+		add_filter(context, 'harsh_colors.glsl', 'harsh_colors', 5, options)
 		return {'FINISHED'}
 
 
@@ -809,9 +785,8 @@ class HarshColorsFilterOptionsOperator(bpy.types.Operator):
 
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import harsh_colors
 		set_shader_properties(self, context)
-		update_shader(self, context, harsh_colors, 'harsh_colors.glsl')
+		update_shader(self, context, 'harsh_colors.glsl')
 
 		return {'FINISHED'}
  
@@ -834,10 +809,9 @@ class DepthFilterOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import depth
 
 		options = DepthFilterOptionsOperator
-		add_filter(context, depth, 'depth.glsl', 'depth', 5, options)
+		add_filter(context, 'depth.glsl', 'depth', 5, options)
 		return {'FINISHED'}
 
 
@@ -849,9 +823,8 @@ class DepthFilterOptionsOperator(bpy.types.Operator):
 
 
 	def execute(self, context):
-		from bge_shortcuts.shaders import depth
 		set_shader_properties(self, context)
-		update_shader(self, context, depth, 'depth.glsl')
+		update_shader(self, context, 'depth.glsl')
 
 		return {'FINISHED'}
  

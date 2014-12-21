@@ -1,4 +1,3 @@
-script = """
 uniform sampler2D bgl_RenderedTexture;
 const float amount = $shader_technicolor_1_strength;
 
@@ -26,5 +25,4 @@ void main(void)
 	vec4 result = redoutput + bluegreenoutput;
 
 	gl_FragColor = vec4(vec3(mix(input0, result, amount).rgb), 1.0);
-} 
-"""
+}

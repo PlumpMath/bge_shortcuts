@@ -1,5 +1,3 @@
-script = """
-
 uniform sampler2D bgl_RenderedTexture;
 uniform sampler2D bgl_DepthTexture;
  
@@ -31,5 +29,3 @@ void main()
 	gl_FragColor = col;
 	gl_FragColor.a = 1;
 }
-
-"""

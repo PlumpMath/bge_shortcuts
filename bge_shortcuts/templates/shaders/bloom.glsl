@@ -1,4 +1,3 @@
-script = """
 // Name: Cross Bloom Screen Filter
 // Author: SolarLune
 // Date Updated: 2/21/11
@@ -135,4 +134,3 @@ void main()
 	gl_FragColor = center + bloom;  // Usually sum*0.08; 0.08 < is how bright the bloom effect appears on the screen; should probably be around 0.32
 		
 }
-"""

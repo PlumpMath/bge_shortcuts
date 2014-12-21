@@ -28,15 +28,16 @@ bl_info = {
 				"Scripts/My_Script",
 	"category": "Game Engine"}
 
-from . import shaders
 
 if "bpy" in locals():
 	import imp
 	imp.reload(shader_op)
+	imp.reload(test_areas)
 
 else:
 	from .shader_settings import *
 	from . import shader_op
+	from . import test_areas
 
 	
 import bpy
@@ -98,7 +99,7 @@ class ShortcutsPanel(bpy.types.Panel):
 
 		self.layout.label("Navigation", icon='ZOOMIN')
 		self.layout.operator("bge_shortcuts.fly_camera_operator", icon='OUTLINER_OB_CAMERA')
-		self.layout.operator("bge_shortcuts.orbit_camera_operator", icon='CAMERA_DATA')
+		#self.layout.operator("bge_shortcuts.orbit_camera_operator", icon='CAMERA_DATA')
 		
 		self.layout.separator()
 		self.layout.operator("bge_shortcuts.first_person_rig", icon='ARMATURE_DATA')
@@ -126,7 +127,10 @@ class ShortcutsPanel(bpy.types.Panel):
 		draw_toggle_button(self, "bge_shortcuts.harsh_colors_filter", "SEQ_CHROMA_SCOPE", "harsh_colors")
 		draw_toggle_button(self, "bge_shortcuts.depth_filter", "MOD_ARRAY", "depth")
 
+		self.layout.separator()
 
+		#self.layout.label("Test Areas", icon='COLOR')
+		#self.layout.operator("bge_shortcuts.test_area_1", icon='POSE_DATA')
 
 
 class OrbitCameraOperator(bpy.types.Operator):
@@ -142,9 +146,6 @@ class OrbitCameraOperator(bpy.types.Operator):
 
 	def execute(self, context):
 		return {'FINISHED'}
-
-
-
 
 
 def register():

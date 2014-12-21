@@ -1,4 +1,4 @@
-script = """
+
 /*
 SSAO GLSL shader v1.2
 assembled by Martins Upitis (martinsh) (devlog-martinsh.blogspot.com)
@@ -34,15 +34,15 @@ int samples = $shader_ssao_samples; //ao sample count
 
 float radius = $shader_ssao_radius; //ao radius
 float aoclamp = 0.25; //depth clamp - reduces haloing at screen edges
-bool noise = false; //use noise instead of pattern for sample dithering
-float noiseamount = 0.0; //dithering amount
+bool noise = true; //use noise instead of pattern for sample dithering
+float noiseamount = 0.0002; //dithering amount
 
 float diffarea = $shader_ssao_diffarea; //self-shadowing reduction
 float gdisplace = $shader_ssao_gdisplace; //gauss bell center
 
-bool mist = true; //use mist?
+bool mist = false; //use mist?
 float miststart = 0.0; //mist start
-float mistend = 200.0; //mist end
+float mistend = 16.0; //mist end
 
 bool onlyAO = $shader_ssao_only_ao; //use only ambient occlusion pass?
 float lumInfluence = $shader_ssao_lum_influence; //how much luminance affects occlusion
@@ -73,7 +73,6 @@ float readDepth(in vec2 coord)
 {
 	if (gl_TexCoord[0].x<0.0||gl_TexCoord[0].y<0.0) return 1.0;
 	return (2.0 * znear) / (zfar + znear - texture2D(bgl_DepthTexture, coord ).x * (zfar-znear));
-	//return texture2D(bgl_DepthTexture, coord ).x;
 }
 
 float compareDepths(in float depth1, in float depth2,inout int far)
@@ -172,5 +171,3 @@ void main(void)
 	gl_FragColor = vec4(final,1.0); 
 	
 }
-
-"""

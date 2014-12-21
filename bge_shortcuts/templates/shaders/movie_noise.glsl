@@ -1,4 +1,3 @@
-script = """
 uniform sampler2D bgl_RenderedTexture;
 
 uniform float timer;
@@ -17,4 +16,3 @@ void main(void)
 	   
 	gl_FragColor = texture2D(bgl_RenderedTexture, gl_TexCoord[0].st) + (noise*(noise_amount * -1));
 }
-"""

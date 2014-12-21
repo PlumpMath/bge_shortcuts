@@ -1,18 +1,16 @@
-script = """
 from bge import logic
 from bge import events
 from bge import render
 
 from mathutils import Vector
 
-class ThirdPersonRig():
+class FPSRig():
     
     def __init__(self, cont):
         
         self.body = cont.owner
-        self.camera_parent = self.body.children['shortcuts_third_person_camera_parent']
-        self.camera_parent_rotation = self.camera_parent.localOrientation.copy()
-
+        self.camera = self.body.children['shortcuts_fps_camera']
+        
         # Player movement variables
         self.move_speed = 5.0
         self.run_multiplier = 2.0        
@@ -61,7 +59,7 @@ class ThirdPersonRig():
                  
             # set the values
             self.body.applyRotation([0, 0, x], False)
-            # self.camera.applyRotation([y, 0, 0], True)
+            self.camera.applyRotation([y, 0, 0], True)
                 
             # Center mouse in game window
             render.setMousePosition(*self.screen_center)
@@ -69,15 +67,13 @@ class ThirdPersonRig():
         if self.delay <= 1:
             self.delay += 1        
         
-
          
          
-        # -----------------------------
-        # Movement and camera rotation
-        # -----------------------------
+        # --------
+        # Movement
+        # --------
         
         keyboard = logic.keyboard.events
-        mouse = logic.mouse.events
         
         # Use two variables to track the directions
         forward = 0
@@ -110,16 +106,9 @@ class ThirdPersonRig():
         self.body.setLinearVelocity([side * speed, forward * speed, z_speed], True)
 
 
-        # Camera rotation when right click is pressed
-        if mouse[events.RIGHTMOUSE]:
-            pass
-
-
 def main(cont):
         
-    if 'third_person_rig' not in cont.owner:        
-        cont.owner['third_person_rig'] = ThirdPersonRig(cont)
+    if 'fps_rig' not in cont.owner:        
+        cont.owner['fps_rig'] = FPSRig(cont)
         
-    cont.owner['third_person_rig'].update()
-
-"""
+    cont.owner['fps_rig'].update()        

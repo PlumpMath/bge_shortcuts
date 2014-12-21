@@ -1,4 +1,3 @@
-script = """
 // Name: Edge Detect
 // Author: SolarLune
 // Date Updated: 6/6/11
@@ -33,4 +32,3 @@ void main(void)
 	else
 		gl_FragColor = center;
 }
-"""

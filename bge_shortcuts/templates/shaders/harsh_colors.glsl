@@ -1,4 +1,3 @@
-script = """
 // Name: Harsh Colors
 // Author: SolarLune
 // Date Updated: 2/21/11
@@ -45,4 +44,3 @@ void main(void)
 	gl_FragColor = color;
 
 }
-"""

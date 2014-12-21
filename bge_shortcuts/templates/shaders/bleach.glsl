@@ -1,4 +1,3 @@
-script = """
 uniform sampler2D bgl_RenderedTexture;
 const float amount = $shader_bleach_strength;
 
@@ -32,4 +31,3 @@ void main (void)
 	gl_FragColor = overlay(luma, input0, vec4(amount));
 	gl_FragColor.a = 1.0;	
 }
-"""

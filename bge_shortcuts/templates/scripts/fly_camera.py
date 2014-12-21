@@ -1,5 +1,3 @@
-script = """
-
 from bge import logic
 from bge import render
 from bge import events
@@ -103,7 +101,3 @@ def main(cont):
         cont.owner['fly_camera'] = FlyCamera(cont)
 
     cont.owner['fly_camera'].update()
-
-
-
-"""

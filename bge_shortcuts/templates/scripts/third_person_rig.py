@@ -1,17 +1,17 @@
-script = """
 from bge import logic
 from bge import events
 from bge import render
 
 from mathutils import Vector
 
-class FPSRig():
+class ThirdPersonRig():
     
     def __init__(self, cont):
         
         self.body = cont.owner
-        self.camera = self.body.children['shortcuts_fps_camera']
-        
+        self.camera_parent = self.body.children['shortcuts_third_person_camera_parent']
+        self.camera_parent_rotation = self.camera_parent.localOrientation.copy()
+
         # Player movement variables
         self.move_speed = 5.0
         self.run_multiplier = 2.0        
@@ -60,7 +60,7 @@ class FPSRig():
                  
             # set the values
             self.body.applyRotation([0, 0, x], False)
-            self.camera.applyRotation([y, 0, 0], True)
+            # self.camera.applyRotation([y, 0, 0], True)
                 
             # Center mouse in game window
             render.setMousePosition(*self.screen_center)
@@ -68,13 +68,15 @@ class FPSRig():
         if self.delay <= 1:
             self.delay += 1        
         
+
          
          
-        # --------
-        # Movement
-        # --------
+        # -----------------------------
+        # Movement and camera rotation
+        # -----------------------------
         
         keyboard = logic.keyboard.events
+        mouse = logic.mouse.events
         
         # Use two variables to track the directions
         forward = 0
@@ -107,11 +109,14 @@ class FPSRig():
         self.body.setLinearVelocity([side * speed, forward * speed, z_speed], True)
 
 
+        # Camera rotation when right click is pressed
+        if mouse[events.RIGHTMOUSE]:
+            pass
+
+
 def main(cont):
         
-    if 'fps_rig' not in cont.owner:        
-        cont.owner['fps_rig'] = FPSRig(cont)
+    if 'third_person_rig' not in cont.owner:        
+        cont.owner['third_person_rig'] = ThirdPersonRig(cont)
         
-    cont.owner['fps_rig'].update()        
-
-"""
+    cont.owner['third_person_rig'].update()

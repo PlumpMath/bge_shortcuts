@@ -1,4 +1,3 @@
-script = """
 uniform sampler2D bgl_DepthTexture;  // Depth texture  
 uniform sampler2D bgl_RenderedTexture; // Color texture 
 uniform float bgl_RenderedTextureWidth;
@@ -118,4 +117,3 @@ for (int i = 0; i < int(samples); ++i)
 
 	
 }
-"""

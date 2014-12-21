@@ -1,5 +1,8 @@
-import bpy
+import os
+import ntpath
 import math
+
+import bpy
 
 class FlyCameraOperator(bpy.types.Operator):
 	"""Tooltip"""
@@ -14,8 +17,7 @@ class FlyCameraOperator(bpy.types.Operator):
 
 	def execute(self, context):
 
-		from bge_shortcuts.scripts import fly_camera
-
+		script_name = 'fly_camera.py'
 		
 		# Add the camera
 		bpy.ops.object.camera_add()
@@ -26,14 +28,18 @@ class FlyCameraOperator(bpy.types.Operator):
 		camera.rotation_euler = [math.radians(90),0,0]
 
 		# Text block for the script
-		if 'fly_camera.py' in bpy.data.texts:
-			text = bpy.data.texts['fly_camera.py']
+		if script_name in bpy.data.texts:
+			text = bpy.data.texts[script_name]
 		else:
 			bpy.ops.text.new()
 			text = bpy.data.texts[-1]
-			text.name = 'fly_camera.py'
+			text.name = script_name
 
-			text.from_string(fly_camera.script)
+			script_location = os.path.join(ntpath.dirname(__file__), 'templates/scripts/' + script_name)
+			script_file = open(script_location, 'r')
+			text.from_string(script_file.read())
+
+			#text.from_string(fly_camera.script)
 		
 		# Add an 'always' sensor
 		bpy.ops.logic.sensor_add(type='ALWAYS', object=camera.name)
@@ -64,7 +70,8 @@ class FirstPersonRigOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.scripts import fps_rig
+
+		script_name = 'fps_rig.py'
 
 		bpy.context.scene.game_settings.frame_type = 'EXTEND'
 
@@ -86,9 +93,7 @@ class FirstPersonRigOperator(bpy.types.Operator):
 		bpy.context.object.draw_type = 'WIRE'
 
 
-
 		holder = bpy.context.selected_objects[0]
-
 
 		# Add the camera
 		bpy.ops.object.camera_add(view_align=True, enter_editmode=False, location=(0, 0, 0), rotation=(1.1088, 1.34398e-07, -1.036))
@@ -109,16 +114,18 @@ class FirstPersonRigOperator(bpy.types.Operator):
 
 		# Add the first person walking script
 
-
 		# Text block for the script
-		if 'fps_rig.py' in bpy.data.texts:
-			text = bpy.data.texts['fps_rig.py']
+		if script_name in bpy.data.texts:
+			text = bpy.data.texts[script_name]
 		else:
 			bpy.ops.text.new()
 			text = bpy.data.texts[-1]
-			text.name = 'fps_rig.py'
+			text.name = script_name
 
-			text.from_string(fps_rig.script)
+			script_location = os.path.join(ntpath.dirname(__file__), 'templates/scripts/' + script_name)
+			script_file = open(script_location, 'r')
+			text.from_string(script_file.read())
+
 		
 		# Add an 'always' sensor
 		bpy.ops.logic.sensor_add(type='ALWAYS', object=holder.name)
@@ -150,7 +157,8 @@ class ThirdPersonRigOperator(bpy.types.Operator):
 		return True
 
 	def execute(self, context):
-		from bge_shortcuts.scripts import third_person_rig
+		
+		script_name = 'third_person_rig.py'
 
 		bpy.context.scene.game_settings.frame_type = 'EXTEND'
 
@@ -213,14 +221,16 @@ class ThirdPersonRigOperator(bpy.types.Operator):
 		holder.location = bpy.context.scene.cursor_location
 
 		# Add the first person walking script
-		if 'third_person_rig.py' in bpy.data.texts:
-			text = bpy.data.texts['third_person_rig.py']
+		if script_name in bpy.data.texts:
+			text = bpy.data.texts[script_name]
 		else:
 			bpy.ops.text.new()
 			text = bpy.data.texts[-1]
-			text.name = 'third_person_rig.py'
+			text.name = script_name
 
-			text.from_string(third_person_rig.script)
+			script_location = os.path.join(ntpath.dirname(__file__), 'templates/scripts/' + script_name)
+			script_file = open(script_location, 'r')
+			text.from_string(script_file.read())
 		
 		# Add an 'always' sensor
 		bpy.ops.logic.sensor_add(type='ALWAYS', object=holder.name)

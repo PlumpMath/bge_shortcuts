@@ -1,4 +1,3 @@
-script = """
 // Name: Sepia Filter
 // Author: Derived from Desaturate and Blender's source Sepia filter
 // Date Updated: 2/21/11
@@ -18,4 +17,3 @@ void main(void)
 
 	gl_FragColor = mix(color, desat, percentage);
 }
-"""

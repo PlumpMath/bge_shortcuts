@@ -1,4 +1,3 @@
-script = """
 uniform sampler2D bgl_RenderedTexture;
 uniform float percentage = $shader_saturate_strength;
 
@@ -13,4 +12,3 @@ void main(void)
 
 	gl_FragColor = mix(color, desat, (percentage * -1));
 }
-"""

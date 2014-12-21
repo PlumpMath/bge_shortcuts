@@ -1,4 +1,3 @@
-script = """
 uniform sampler2D bgl_RenderedTexture;
 
 const float vignette_size = $shader_vignette_size;
@@ -13,4 +12,3 @@ void main(void)
 	gl_FragColor = mix(texture2D(bgl_RenderedTexture, gl_TexCoord[0].st), vec4(0.0), gradient);
 	gl_FragColor.a = 1.0;
 }
-"""

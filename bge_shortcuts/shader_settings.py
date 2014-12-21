@@ -15,7 +15,7 @@ class ShaderSettings(bpy.types.PropertyGroup):
 	# -------------------------
 	shader_dof_blur_clamp = bpy.props.FloatProperty(default=0.002, name='Blur Clamp', precision=4)
 	shader_dof_bias = bpy.props.FloatProperty(default=0.05, name='Bias', min=0.0, max=1.0)
-	shader_dof_kernel_size = bpy.props.FloatProperty(default=8.0, name='Kernel Size')
+	shader_dof_kernel_size = bpy.props.FloatProperty(default=6.0, name='Kernel Size')
 
 	# -------------------------
 	# SSAO
@@ -107,8 +107,8 @@ class ShaderSettings(bpy.types.PropertyGroup):
 	# -------------------------	
 	# Edge Detect
 	# -------------------------
-	shader_edge_detect_thickness = bpy.props.FloatProperty(default=2.0, name='Thickness')
-	shader_edge_detect_edge = bpy.props.FloatProperty(default=3.0, name='Edge Threshold')
+	shader_edge_detect_thickness = bpy.props.FloatProperty(default=1.0, name='Thickness')
+	shader_edge_detect_edge = bpy.props.FloatProperty(default=1.0, name='Edge Threshold')
 
 
 

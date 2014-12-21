@@ -1,4 +1,3 @@
-script = """
 uniform sampler2D bgl_DepthTexture;
 
 void main(void)
@@ -9,4 +8,3 @@ void main(void)
 	color -= vec4(factor, factor, factor, factor);
 	gl_FragColor = color;
 }
-"""

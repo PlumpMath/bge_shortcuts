@@ -1,5 +1,3 @@
-script = """
-
 // SolarLune
 
 uniform sampler2D bgl_RenderedTexture;
@@ -16,4 +14,3 @@ void main()
 
 	gl_FragColor = vec4(sum, 1.0);
 }
-"""

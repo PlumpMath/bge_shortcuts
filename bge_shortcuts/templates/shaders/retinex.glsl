@@ -1,4 +1,3 @@
-script = """
 uniform sampler2D bgl_RenderedTexture;
 
 const float retinex = $shader_retinex_strength;
@@ -32,4 +31,4 @@ for (j = -5; j < 5; j++)
 	gl_FragColor = pow_value*value;
 
 }
-"""
+

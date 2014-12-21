@@ -1,4 +1,3 @@
-script = """
 // Name: Pixellate
 // Author: SolarLune
 // Date: 6/6/11
@@ -32,4 +31,3 @@ void main(void)
 
 	gl_FragColor = vec4(texture2D(bgl_RenderedTexture, coord));
 }
-"""
